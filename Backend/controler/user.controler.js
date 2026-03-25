@@ -13,7 +13,7 @@ module.exports.registerUser = async (req, res, next) => {
 
     const isUserthere=await userModel.findOne({email});
     if(isUserthere){
-        return res.status(201).json({message:"User already there"});
+        return res.status(400).json({message:"User already there"});
     }
 
     const hashedPassword = await userModel.hashpassword(password);
@@ -30,7 +30,7 @@ module.exports.registerUser = async (req, res, next) => {
             httpOnly: true,   // prevents JS access (secure)
             secure: false     // true in production (HTTPS)
         })
-        .status(200)
+        .status(201)
         .json({ user });
 }
 

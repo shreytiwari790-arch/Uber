@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link,Navigate } from 'react-router-dom'
 
 const UserLogin = () => {
 
@@ -33,7 +33,7 @@ const UserLogin = () => {
             <form onSubmit={(e)=>{
                 submithandler(e)
             }}>
-                <h3 className='text-xl mb-2'>What's your email</h3>
+                <h3 className='text-xl mb-2'>What's Our Captains Email</h3>
                 <input
                     required
                     type="email"
