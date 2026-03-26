@@ -43,13 +43,13 @@ module.exports.loginUser = async (req, res, next) => {
     const user = await userModel.findOne({ email }).select('+password')
 
     if (!user) {
-        return res.status(200).json({ message: 'Invalid Email' })
+        return res.status(400).json({ message: 'Invalid Email' })
     }
 
     const pass = await user.comparepassword(password);
 
     if (!pass) {
-        return res.status(200).json({ message: 'Invalid password' })
+        return res.status(400).json({ message: 'Invalid password' })
     }
 
     const token = user.generateAuthToken();
@@ -60,12 +60,12 @@ module.exports.loginUser = async (req, res, next) => {
             httpOnly: true,   // prevents JS access (secure)
             secure: false     // true in production (HTTPS)
         })
-        .status(200)
+        .status(201)
         .json({ user ,token});
 }
 
 module.exports.getUserProfile = async (req, res, next) => {
-    res.status(200).json({
+    res.status(201).json({
         message: "Profile fetched successfully",
         user: req.user
     });

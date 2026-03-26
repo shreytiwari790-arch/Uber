@@ -32,6 +32,7 @@ const UserLogin = () => {
 
       const data=response.data
       setuser(data.user)
+      localStorage.setItem('token',data.token)
 
       navigate('/home');
     }
