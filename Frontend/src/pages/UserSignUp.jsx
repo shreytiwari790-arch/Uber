@@ -37,6 +37,11 @@ const UserLogin = () => {
       navigate('/home');
     }
 
+    else{
+      window.alert("Invalid users")
+      
+    }
+
     console.log(user)
 
     setEmail('');

@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react'
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
+import LocationMap from './locationmap';
 
 const HomeNew = () => {
   const [pickup, setPickup] = useState('')
@@ -16,9 +17,9 @@ const HomeNew = () => {
 
   useGSAP(function () {
     if (panelOpen) {
-      // Slide the entire white container up to fill 70% of screen
+      // Slide the entire white container up to fill 100% of screen
       gsap.to(containerRef.current, {
-        height: '70%',
+        height: '100%',
         padding: 24,
         duration: 0.5
       })
@@ -36,7 +37,7 @@ const HomeNew = () => {
     <div className='relative h-screen w-screen overflow-hidden bg-gray-200'>
       {/* Uber Logo */}
       <img
-        className="w-20 absolute left-5 top-5 object-contain z-10"
+        className={`w-20 absolute left-5 top-5 object-contain z-10 ${panelOpen ? 'hidden' : 'block'}`}
         src="https://download.logo.wine/logo/Uber/Uber-Logo.wine.png"
         alt="uber logo"
       />
@@ -89,13 +90,9 @@ const HomeNew = () => {
         </div>
 
         {/* The Result Panel (Red section - now hidden when collapsed) */}
-        <div ref={panelRef} className={`flex-1 overflow-y-auto bg-red-500 p-5 ${panelOpen ? 'opacity-100' : 'opacity-0'}`}>
-          <div className='text-white'>
-            <p className='mb-4'>Suggested Location 1...</p>
-            <p className='mb-4'>Suggested Location 2...</p>
-            <p>Suggested Location 3...</p>
-          </div>
-        </div>
+        
+          <LocationMap />
+
 
       </div>
     </div>
