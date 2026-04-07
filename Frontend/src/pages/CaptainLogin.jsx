@@ -1,21 +1,34 @@
-import React from 'react'
-import { useState } from 'react'
-import { Link,Navigate } from 'react-router-dom'
+import React, { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
-const UserLogin = () => {
+const CaptainLogin = () => {
 
-    const [email,setemail]=useState("");
-    const [password,setpassword]=useState('');
-    const [userData,setUserData]=useState({});
+    const [email, setemail] = useState("");
+    const [password, setpassword] = useState('');
+    
+    const navigate = useNavigate();
 
-    const submithandler=(e)=>{
+    const submithandler = async (e) => {
         e.preventDefault();
         
-        setUserData({
-            email:email,
-            password:password,
-        })
-        console.log(userData)
+        const loginData = {
+            email: email,
+            password: password
+        };
+
+        try {
+            const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/captain/login`, loginData)
+            if (response.status === 200) {
+                const data = response.data
+                localStorage.setItem('token', data.token)
+                navigate('/captainhome')
+            }
+        } catch (err) {
+            console.log(err)
+            alert(err.response?.data?.message || err.response?.data?.errors?.[0]?.msg || "Failed to login captain")
+        }
+        
         setemail('');
         setpassword('')
     }
@@ -67,4 +80,4 @@ const UserLogin = () => {
     )
 }
 
-export default UserLogin
+export default CaptainLogin
